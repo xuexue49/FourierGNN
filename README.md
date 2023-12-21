@@ -5,13 +5,13 @@ This repo is the official Pytorch implementation of ["FourierGNN: Rethinking Mul
 ### Running the Codes
 `python main.py`
 
-- Covid: -- feature_size 55 -- embedding size 256 -- hidden size 512 -- batch size 4 --train_ratio 0.6 --val_ratio 0.2
-- METR-LA: -- feature_size 207 -- embedding size 128 -- hidden size 256 -- batch size 32 --train_ratio 0.7 --val_ratio 0.2
-- Traffic: feature_size 963 -- hidden size 128 -- hidden size 256 -- batch size 2 --train_ratio 0.7 --val_ratio 0.2
-- ECG: feature_size 140  -- hidden size 128 -- hidden size 256 -- batch size  4 --train_ratio 0.7 --val_ratio 0.2
-- Solar: feature_size 592 -- hidden size 128 -- hidden size 256 -- batch size 2 --train_ratio 0.7 --val_ratio 0.2
-- Wiki: feature_size 2000 -- hidden size 128 -- hidden size 256 -- batch size 2 --train_ratio 0.7 --val_ratio 0.2
-- Electricity: feature_size 370 -- hidden size 128 -- hidden size 256 -- batch size 32 --train_ratio 0.7 --val_ratio 0.2
+- Covid: --feature_size 55 --embed_size 256 --hidden_size 512 -- batch_size 4 --train_ratio 0.6 --val_ratio 0.2
+- METR-LA: --data metr --feature_size 207 --embed_size 128 --hidden_size 256 --batch_size 32 --train_ratio 0.7 --val_ratio 0.2
+- Traffic: --feature_size 963 --embed_size 128 --hidden_size 256 --batch_size 2 --train_ratio 0.7 --val_ratio 0.2
+- ECG: --data ECG --feature_size 140  --embed_size 128 --hidden_size 256 --batch_size 4 --train_ratio 0.7 --val_ratio 0.2
+- Solar: --feature_size 592 --embed_size 128 --hidden_size 256 --batch_size 2 --train_ratio 0.7 --val_ratio 0.2
+- Wiki: --feature_size 2000 --embed_size 128 --hidden_size 256 --batch_size 2 --train_ratio 0.7 --val_ratio 0.2
+- Electricity: --feature_size 370 --embed_size 128 --hidden_size 256 --batch_size 32 --train_ratio 0.7 --val_ratio 0.2
 
 ## Citation
 
