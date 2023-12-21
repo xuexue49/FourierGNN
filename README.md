@@ -1,8 +1,14 @@
 # FourierGNN: Rethinking Multivariate Time Series Forecasting from a Pure Graph Perspective
 
-This repo is the official Pytorch implementation of ["FourierGNN: Rethinking Multivariate Time Series Forecasting from a Pure Graph Perspective"](https://arxiv.org/pdf/2311.06190.pdf).
+非官方修改,收集了两个数据集进行测试，结果与论文较符合，但似乎略优于论文中的数据。
+
+METR-LA: MAPE 53.946374603%; MAE 0.048967090; RMSE 0.087826379.
+ECG: 
 
 ### Running the Codes
+
+修复了原readme中错误的运行参数
+
 `python main.py`
 
 - Covid: --feature_size 55 --embed_size 256 --hidden_size 512 -- batch_size 4 --train_ratio 0.6 --val_ratio 0.2
@@ -15,22 +21,6 @@ This repo is the official Pytorch implementation of ["FourierGNN: Rethinking Mul
 
 ## Citation
 
-If you find this repo useful, please cite our paper. 
+citation 请看原仓库
 
-```
-@inproceedings{yi2023fouriergnn,
-title={Fourier{GNN}: Rethinking Multivariate Time Series Forecasting from a Pure Graph Perspective},
-author={Kun Yi and Qi Zhang and Wei Fan and Hui He and Liang Hu and Pengyang Wang and Ning An and Longbing Cao and Zhendong Niu},
-booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
-year={2023}
-}
-```
-
-## Acknowledgement
-
-We appreciate the following github repos a lot for their valuable code base or datasets:
-
-1. StemGNN: https://github.com/microsoft/StemGNN
-2. MTGNN: https://github.com/nnzhan/MTGNN
-3. GraphWaveNet: https://github.com/nnzhan/Graph-WaveNet
-4. AGCRN: https://github.com/LeiBAI/AGCRN
+ 
