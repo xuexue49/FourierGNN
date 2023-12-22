@@ -1,6 +1,6 @@
 # FourierGNN: Rethinking Multivariate Time Series Forecasting from a Pure Graph Perspective
 
-非官方修改,收集了两个数据集进行测试，结果与论文较符合，但似乎略优于论文中的数据。
+非官方修改,收集了两个数据集进行测试，结果与论文较符合，但似乎略优于论文中的数据，可能与预处理方法不同有关。
 
 METR-LA: MAPE 53.946374603%; MAE 0.048967090; RMSE 0.087826379.
 
