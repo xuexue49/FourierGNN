@@ -49,16 +49,16 @@ class FGN(nn.Module):
 
         self.embeddings_10 = nn.Parameter(torch.randn(self.seq_length, 8))
 
-        self.fc1 = nn.Sequential(
-            nn.Linear(self.embed_size * 16, 64),
+        self.readout = nn.Sequential(
+            nn.Linear(116, 256),
             nn.LeakyReLU(),
-            nn.Linear(64, self.hidden_size),
+            nn.Linear(256, 64),
             nn.LeakyReLU(),
-            nn.Linear(self.hidden_size, 10)
-
+            nn.Linear(64, 1),
         )
-        self.fc2 = nn.Sequential(
-            nn.Linear(1160, 128),
+
+        self.fc1 = nn.Sequential(
+            nn.Linear(2048, 128),
             nn.LeakyReLU(),
             nn.Linear(128, 32),
             nn.LeakyReLU(),
@@ -149,9 +149,11 @@ class FGN(nn.Module):
         # projection 一个可训练的映射self.seq_length(回溯序列长度) -> 8维 定长序列
         x = torch.matmul(x, self.embeddings_10)
         x = x.reshape(B, N, -1)
-        x = self.fc1(x)
-        x = x.view(x.shape[0], -1)
-        x = self.fc2(x)
+        # readout
+        x = x.permute(0, 2, 1)
+        x = self.readout(x)
+        # 全连接
+        x = self.fc1(x.squeeze())
         return x
 
 ## 可视化邻接矩阵

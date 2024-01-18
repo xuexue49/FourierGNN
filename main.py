@@ -14,7 +14,7 @@ parser.add_argument('--validate_freq', type=int, default=1)
 parser.add_argument('--decay_rate', type=float, default=0.5)
 parser.add_argument('--exponential_decay_step', type=int, default=5)
 parser.add_argument('--data', type=str, default='ABIDE-871', help='data set')
-parser.add_argument('--seq_length', type=int, default=36, help='inout length')
+parser.add_argument('--seq_length', type=int, default=12, help='inout length')
 parser.add_argument('--pre_length', type=int, default=2, help='predict length')
 parser.add_argument('--train_epochs', type=int, default=100, help='train epochs')
 parser.add_argument('--feature_size', type=int, default='116', help='feature size')
@@ -57,6 +57,9 @@ def validate(model, vali_loader):
         x = x.float().to("cuda:0")
         forecast = model(x)
 #        y = y.permute(0, 2, 1).contiguous()
+        # 处理特殊数据
+        if forecast.ndim == 1:
+            forecast = forecast.unsqueeze(0)
         loss = forecast_loss(forecast, y)
         loss_total += float(loss)
         forecast = forecast.detach().cpu().numpy()  # .squeeze()
@@ -79,7 +82,7 @@ def test(epoch: int):
     preds = []
     trues = []
     sne = []
-    for index, (x, y) in enumerate(train_dataloader):
+    for index, (x, y) in enumerate(test_dataloader):
         y = y.float().to("cuda:0")
         x = x.float().to("cuda:0")
         forecast = model(x)
@@ -98,30 +101,30 @@ def test(epoch: int):
 
 if __name__ == '__main__':
 
-    for epoch in range(args.train_epochs):
-        epoch_start_time = time.time()
-        model.train()
-        loss_total = 0
-        cnt = 0
-        for index, (x, y) in enumerate(train_dataloader):
-            cnt += 1
-            y = y.float().to("cuda:0")
-            x = x.float().to("cuda:0")
-            forecast = model(x)
-            loss = forecast_loss(forecast, y)
-            loss.backward()
-            my_optim.step()
-            loss_total += float(loss)
-
-        if (epoch + 1) % args.exponential_decay_step == 0:
-            my_lr_scheduler.step()
-        if (epoch + 1) % args.validate_freq == 0:
-            val_loss = validate(model, val_dataloader)
-
-        print('| end of epoch {:3d} | time: {:5.2f}s | train_total_loss {:5.4f} | val_loss {:5.4f}'.format(
-                epoch, (time.time() - epoch_start_time), loss_total / cnt, val_loss))
-        save_model(model, result_train_file, epoch)
-#        for i in range(0,20):
-#            print(f"the epoch is {i}")
-#            test(i)
+    #for epoch in range(args.train_epochs):
+    #    epoch_start_time = time.time()
+    #    model.train()
+    #    loss_total = 0
+    #    cnt = 0
+    #    for index, (x, y) in enumerate(train_dataloader):
+    #        cnt += 1
+    #        y = y.float().to("cuda:0")
+    #        x = x.float().to("cuda:0")
+    #        forecast = model(x)
+    #        loss = forecast_loss(forecast, y)
+    #        loss.backward()
+    #        my_optim.step()
+    #        loss_total += float(loss)
+#
+    #    if (epoch + 1) % args.exponential_decay_step == 0:
+    #        my_lr_scheduler.step()
+    #    if (epoch + 1) % args.validate_freq == 0:
+    #        val_loss = validate(model, val_dataloader)
+#
+    #    print('| end of epoch {:3d} | time: {:5.2f}s | train_total_loss {:5.4f} | val_loss {:5.4f}'.format(
+    #            epoch, (time.time() - epoch_start_time), loss_total / cnt, val_loss))
+    #    save_model(model, result_train_file, epoch)
+    for i in range(0, 50):
+        print(f"the epoch is {i}")
+        test(i)
 
